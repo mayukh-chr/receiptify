@@ -174,45 +174,47 @@
           $("#loggedin").show();
         },
       });
-    } else if (client === "applemusic" && dev_token) {
-      // console.log("token", dev_token);
+    }
+    // else if (client === "applemusic" && dev_token) {
+    //   // console.log("token", dev_token);
 
-      const setupMusicKit = new Promise((resolve) => {
-        document.addEventListener("musickitloaded", () => {
-          const musicKitInstance = window.MusicKit.configure({
-            developerToken: dev_token,
-            app: {
-              name: "receiptify",
-              build: "1.0.0",
-            },
-          });
-          delete window.MusicKit; // clear global scope
-          resolve(musicKitInstance);
-        });
-      });
-      $("#loggedin").hide();
-      setupMusicKit.then(async (musicKit) => {
-        try {
-          await musicKit.authorize().then(async (token) => {
-            try {
-              const hist = musicKit.api.recentPlayed().then((hist) => {
-                $("#options").hide();
-                $("#login").hide();
-                $("#loggedin").show();
-                retrieveTracksApple(hist);
-                console.log(hist);
-              });
-            } catch (error) {
-              alert(
-                "Your listening history isn't sufficient enough to generate your top tracks. Please try again."
-              );
-            }
-          });
-        } catch (error) {
-          alert("Authorization Failed");
-        }
-      });
-    } else {
+    //   const setupMusicKit = new Promise((resolve) => {
+    //     document.addEventListener("musickitloaded", () => {
+    //       const musicKitInstance = window.MusicKit.configure({
+    //         developerToken: dev_token,
+    //         app: {
+    //           name: "receiptify",
+    //           build: "1.0.0",
+    //         },
+    //       });
+    //       delete window.MusicKit; // clear global scope
+    //       resolve(musicKitInstance);
+    //     });
+    //   });
+    //   $("#loggedin").hide();
+    //   setupMusicKit.then(async (musicKit) => {
+    //     try {
+    //       await musicKit.authorize().then(async (token) => {
+    //         try {
+    //           const hist = musicKit.api.recentPlayed().then((hist) => {
+    //             $("#options").hide();
+    //             $("#login").hide();
+    //             $("#loggedin").show();
+    //             retrieveTracksApple(hist);
+    //             console.log(hist);
+    //           });
+    //         } catch (error) {
+    //           alert(
+    //             "Your listening history isn't sufficient enough to generate your top tracks. Please try again."
+    //           );
+    //         }
+    //       });
+    //     } catch (error) {
+    //       alert("Authorization Failed");
+    //     }
+    //   });
+    // } 
+    else {
       // render initial screen
       $("#login").show();
       $("#loggedin").hide();
@@ -225,19 +227,19 @@
       },
       false
     );
-    document.getElementById("medium_term").addEventListener(
-      "click",
-      function () {
-        retrieveTracks("medium_term", 2, "LAST 6 MONTHS");
-      },
-      false
-    );
-    document.getElementById("long_term").addEventListener(
-      "click",
-      function () {
-        retrieveTracks("long_term", 3, "ALL TIME");
-      },
-      false
-    );
+    // document.getElementById("medium_term").addEventListener(
+    //   "click",
+    //   function () {
+    //     retrieveTracks("medium_term", 2, "LAST 6 MONTHS");
+    //   },
+    //   false
+    // );
+    // document.getElementById("long_term").addEventListener(
+    //   "click",
+    //   function () {
+    //     retrieveTracks("long_term", 3, "ALL TIME");
+    //   },
+    //   false
+    // );
   }
 })();

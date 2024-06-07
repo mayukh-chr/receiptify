@@ -23,12 +23,12 @@ require("dotenv").config();
 
 const client_id = process.env.clientID; // Your client id
 const client_secret = process.env.clientSecret; // Your secret
-const privateKey = fs.readFileSync("AuthKey_A8FKGGUQP3.p8").toString();
-const teamId = process.env.teamId;
-const keyId = process.env.keyId;
+// const privateKey = fs.readFileSync("AuthKey_A8FKGGUQP3.p8").toString();
+// const teamId = process.env.teamId;
+// const keyId = process.env.keyId;
 
-var redirect_uri = "https://receiptify.herokuapp.com/callback"; // Your redirect uri
-// var redirect_uri = "http://localhost:3000/callback";
+//var redirect_uri = "https://receiptify.herokuapp.com/callback"; // Your redirect uri
+var redirect_uri = "http://localhost:3000/callback";
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -74,40 +74,40 @@ app.get("/login", function (req, res) {
   );
 });
 
-app.get("/applemusic", function (req, res) {
-  const token = jwt.sign({}, privateKey, {
-    algorithm: "ES256",
-    expiresIn: "180d",
-    issuer: teamId,
-    header: {
-      alg: "ES256",
-      kid: keyId,
-    },
-  });
+// app.get("/applemusic", function (req, res) {
+//   const token = jwt.sign({}, privateKey, {
+//     algorithm: "ES256",
+//     expiresIn: "180d",
+//     issuer: teamId,
+//     header: {
+//       alg: "ES256",
+//       kid: keyId,
+//     },
+//   });
 
-  res.redirect(
-    "/#" +
-      querystring.stringify({
-        client: "applemusic",
-        dev_token: token,
-      })
-  );
-  // res.redirect("https://idmsa.apple.com/IDMSWebAuth/auth?" + querystring.stringify({}))
-  // let music = MusicKit.getInstance();
-  // music.authorize().then(console.log("hello"));
-  // res.sendFile(__dirname + "/public/applemusic.html");
-});
+//   res.redirect(
+//     "/#" +
+//       querystring.stringify({
+//         client: "applemusic",
+//         dev_token: token,
+//       })
+//   );
+//   // res.redirect("https://idmsa.apple.com/IDMSWebAuth/auth?" + querystring.stringify({}))
+//   // let music = MusicKit.getInstance();
+//   // music.authorize().then(console.log("hello"));
+//   // res.sendFile(__dirname + "/public/applemusic.html");
+// });
 
-app.get("/lastfm", function (req, res) {
-  // res.redirect(
-  //   "/#" +
-  //     querystring.stringify({
-  //       lastfmKey: lastfmKey,
-  //       service: "lastfm"
-  //     })
-  // );
-  res.sendFile(__dirname + "/public/lastfm.html");
-});
+// app.get("/lastfm", function (req, res) {
+//   // res.redirect(
+//   //   "/#" +
+//   //     querystring.stringify({
+//   //       lastfmKey: lastfmKey,
+//   //       service: "lastfm"
+//   //     })
+//   // );
+//   res.sendFile(__dirname + "/public/lastfm.html");
+// });
 
 app.get("/callback", function (req, res) {
   // your application requests refresh and access tokens
